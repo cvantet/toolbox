@@ -3,7 +3,7 @@ import PyPDF2, os
 def merge_pdf(src_path='.', output_file='combinedminutes.pdf'):
     pdfFiles = []
     for filename in os.listdir(src_path):
-        if filename.endswith('.pdf'): pdfFiles.append(filename)
+        if filename.endswith('.pdf'): pdfFiles.append(os.path.join(src_path, filename))
     pdfFiles.sort(key=str.lower)
     pdfWriter = PyPDF2.PdfFileWriter()   
     pdfOutputFile = open('combinedminutes.pdf', 'wb')
@@ -13,7 +13,7 @@ def merge_pdf(src_path='.', output_file='combinedminutes.pdf'):
         for pageNum in range(pdfReader.numPages):
             pageObj = pdfReader.getPage(pageNum)
             pdfWriter.addPage(pageObj)
-        pdfWrite.write(pdfOutputFile)
+        pdfWriter.write(pdfOutputFile)
         pdfFile.close()
     pdfOutputFile.close()
 
